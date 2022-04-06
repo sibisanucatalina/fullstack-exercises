@@ -1,65 +1,36 @@
-const Header = (props) => {
-  console.log(props)
-  return (
-    <div>
-      <h1>{props.course.name}</h1>
-    </div>
-  )
-}
+import { useState } from "react"
 
-const Part = (props) => {
-  console.log(props)
-  return (
-    <div>
-      <p>{props.name} {props.exercise} </p>
-    </div>
-  )
-}
+const Display = ({ counter }) => <div>{counter}</div>
 
-const Content = (props) => {
-  console.log(props)
-  return (
-    <div>
-      <Part name={props.course.parts[0].name} exercise={props.course.parts[0].exercise} />
-      <Part name={props.course.parts[1].name} exercise={props.course.parts[1].exercise} />
-      <Part name={props.course.parts[2].name} exercise={props.course.parts[2].exercise} />
-    </div>
-  )
-}
 
-const Total = (props) => {
-  return (
-    <div>
-      <p>Number of exercises {props.course.parts[0].exercise + props.course.parts[1].exercise + props.course.parts[2].exercise} </p>
-    </div>
-  )
-}
-
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick} >
+    {text}
+  </button>)
 
 const App = () => {
-  const course = {
-    name: 'Half stack application development',
-    parts: [{
-      name: 'Fundamentals of react',
-      exercise: 10
-    },
-    {
-      name: 'Using props to pass data',
-      exercise: 7
-    },
-    {
-      name: 'State of a component',
-      exercise: 14
-    }]
-  }
+  const [counter, setCounter] = useState(0)
+
+  const increasedByOne = () => setCounter(counter + 1)
+  const decreasedByOne = () => setCounter(counter - 1)
+  const setToZero = () => setCounter(0)
 
   return (
     <div>
-      <Header course={course} />
-      <Content course={course} />
-      <Total course={course} />
+      <Display counter={counter} />
+
+      <Button onClick={increasedByOne}
+        text='plus' />
+
+      <Button onClick={decreasedByOne}
+        text='minus' />
+
+      <Button onClick={setToZero}
+        text='reset' />
+
     </div>
   )
 }
+
 
 export default App
