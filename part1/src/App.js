@@ -1,36 +1,54 @@
 import { useState } from "react"
 
-const Display = ({ counter }) => <div>{counter}</div>
-
-
-const Button = ({ onClick, text }) => (
-  <button onClick={onClick} >
-    {text}
-  </button>)
-
-const App = () => {
-  const [counter, setCounter] = useState(0)
-
-  const increasedByOne = () => setCounter(counter + 1)
-  const decreasedByOne = () => setCounter(counter - 1)
-  const setToZero = () => setCounter(0)
-
+const Greeting = () => {
   return (
-    <div>
-      <Display counter={counter} />
-
-      <Button onClick={increasedByOne}
-        text='plus' />
-
-      <Button onClick={decreasedByOne}
-        text='minus' />
-
-      <Button onClick={setToZero}
-        text='reset' />
-
-    </div>
+    <h1>
+      Give feedback
+    </h1>
   )
 }
 
+const App = () => {
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+  const [allClicks, setAll] = useState([])
+
+  const handleGoodReviews = () => {
+    // setAll(allClicks.concat('R'))
+    setGood(good + 1)
+
+  }
+  const handleBadReviews = () => {
+    // setAll(allClicks.concat('L'))
+    setBad(bad + 1)
+  }
+  const handleNeutralReviews = () => {
+    setNeutral(neutral + 1)
+  }
+
+  return (
+    <div>
+      <Greeting />
+      <button onClick={handleGoodReviews}>
+        good
+      </button>
+      <button onClick={handleBadReviews}>
+        bad
+      </button>
+      <button onClick={handleNeutralReviews}>
+        neutral
+      </button>
+
+      <h1>
+        statistics
+      </h1>
+
+      <p>good  {good}</p>
+      <p>bad  {bad}</p>
+      <p>neutral  {neutral}</p>
+    </div>
+  )
+}
 
 export default App
