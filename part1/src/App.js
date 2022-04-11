@@ -8,6 +8,24 @@ const Greeting = () => {
   )
 }
 
+const StatisticLine = ({ text, value }) => {
+  return (
+    <div>
+      <p>{text} {value} </p>
+    </div>
+  )
+}
+
+const Button = (props) => {
+  return (
+    <div>
+      <button onClick={props.onClick}>
+        {props.text}
+      </button>
+    </div>
+  )
+}
+
 const Statistics = ({ good, bad, neutral, allReviews, avg, pos }) => {
   if (allReviews === 0) {
     return (
@@ -16,21 +34,25 @@ const Statistics = ({ good, bad, neutral, allReviews, avg, pos }) => {
   }
   return (
     <div>
-      <p>good  {good}</p>
-      <p>bad  {bad}</p>
-      <p>neutral  {neutral}</p>
-      <div>all  {allReviews}</div>
-      <div>avg  {avg}</div>
-      <div>pos  {pos} %</div>
+      <StatisticLine text='good' value={good} />
+      <StatisticLine text='bad' value={bad} />
+      <StatisticLine text='neutral' value={neutral} />
+      <StatisticLine text='all' value={allReviews} />
+      <StatisticLine text='average' value={avg} />
+      <StatisticLine text='positive' value={pos} />
     </div>
   )
 }
 
 
 const App = () => {
+
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const [avg, setAvg] = useState(0)
+  const [pos, setPos] = useState(0)
+  const [allReviews, setAll] = useState(0)
   const handleGoodReviews = () => {
     setAll(allReviews + 1)
     setGood(good + 1)
@@ -48,35 +70,21 @@ const App = () => {
     setBad(bad + 1)
     calculateAVG(good, bad + 1, allReviews + 1)
     calculatePositive(good, allReviews + 1)
-
   }
-  const [avg, setAvg] = useState(0)
-  const [pos, setPos] = useState(0)
-  const [allReviews, setAll] = useState(0)
-
   function calculateAVG(good, bad, allReviews) {
     setAvg((good * 1 + bad * -1) / allReviews)
   }
 
   function calculatePositive(good, allReviews) {
-    console.log(good)
     setPos((good / allReviews) * 100)
-    console.log(allReviews)
   }
 
   return (
     <div>
       <Greeting />
-      <button onClick={handleGoodReviews}>
-        good
-      </button>
-      <button onClick={handleBadReviews}>
-        bad
-      </button>
-      <button onClick={handleNeutralReviews}>
-        neutral
-      </button>
-
+      <Button onClick={handleGoodReviews} text='good' />
+      <Button onClick={handleBadReviews} text='bad' />
+      <Button onClick={handleNeutralReviews} text='neutral' />
       <h1>
         statistics
       </h1>
