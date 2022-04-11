@@ -11,7 +11,12 @@ const Greeting = () => {
 const StatisticLine = ({ text, value }) => {
   return (
     <div>
-      <p>{text} {value} </p>
+      <table>
+        <tr>
+          <td>{text}</td>
+          <td>{value}</td>
+        </tr>
+      </table>
     </div>
   )
 }
