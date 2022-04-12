@@ -11,7 +11,8 @@ const Course = ({ course }) => {
                     </p>
                 )}
             </ul>
-            <p> In total there are  {total}
+            <p>
+                In total there are  {total}
             </p>
         </div>
     )
