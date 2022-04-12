@@ -12,6 +12,7 @@ import { useState } from "react"
 
 const App = () => {
 
+
   const anecdotes = [
     'If it hurts, do it more often',
     'Adding manpower to a late software project makes it later!',
@@ -22,22 +23,43 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients'
   ]
 
+
   const getRandomSelected = () => {
     return anecdotes[Math.floor(Math.random() * anecdotes.length)]
   }
+
   const [selected, setSelected] = useState(getRandomSelected())
+  const [points, setPoints] = useState([0, 0, 0, 0, 0, 0, 0,])
+  const copy = [...points]
+  const [max, setMax] = useState(0)
+  const [anecMax, setAnecMax] = useState('If it hurts, do it more often')
+  const handleVotes = () => {
+
+    const indexOf = anecdotes.indexOf(selected)
+    copy[indexOf] += 1
+    setPoints(copy)
+    console.log(copy)
+    const maxCopy = Math.max(...copy)
+    setMax(maxCopy)
+    const indexMax = copy.indexOf(maxCopy)
+    console.log(indexMax)
+    setAnecMax(anecdotes[indexMax])
+  }
 
   const handleClick = () => {
-    const randomSelected = getRandomSelected()
-    setSelected(randomSelected)
+    setSelected(getRandomSelected())
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{selected}</p>
       <button onClick={handleClick}> Generate </button>
+      <button onClick={handleVotes}>Vote</button>
+      <p> has {points[anecdotes.indexOf(selected)]} votes </p>
+      <h1>Anecdote with the most votes</h1>
+      <p> {anecMax} </p>
     </div>
   )
-
 }
 export default App
