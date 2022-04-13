@@ -3,7 +3,7 @@ const Course = ({ course }) => {
         sum + part.exercises, 0)
     return (
         <div>
-            <h1>{course.name}</h1>
+            <h2>{course.name}</h2>
             <ul>
                 {course.parts.map((part) =>
                     <p key={part.id}>
