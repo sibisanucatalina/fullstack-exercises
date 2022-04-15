@@ -6,7 +6,6 @@ const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arlo Minunatu' }
   ])
-
   const [newName, setNewName] = useState('')
 
   const addPerson = (event) => {
@@ -15,9 +14,14 @@ const App = () => {
       name: newName
     }
     console.log(personObject)
-    setPersons(persons.concat(personObject))
-    setNewName('')
-
+    let include = persons.filter(person => person.name === newName)
+    if (include.length > 0) {
+      window.alert('Este deja')
+    } else {
+      setPersons(persons.concat(personObject))
+      setNewName('')
+      console.log(persons)
+    }
   }
 
   const handleNameChange = (event) => {
@@ -30,7 +34,7 @@ const App = () => {
       <form onSubmit={addPerson} >
         <div>
           name: <input onChange={handleNameChange} />
-          <button type='submit' >
+          <button type='submit'>
             add
           </button>
         </div>
