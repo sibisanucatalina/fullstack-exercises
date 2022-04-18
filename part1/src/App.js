@@ -4,14 +4,21 @@ import Numbers from './components/Numbers'
 const App = () => {
 
   const [persons, setPersons] = useState([
-    { name: 'Arlo Minunatu' }
+    {
+      name: 'Arlo Minunatu',
+      number: '067495730'
+    }
   ])
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
+
 
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
-      name: newName
+      name: newName,
+      number: newNumber
+
     }
     console.log(personObject)
     let include = persons.filter(person => person.name === newName)
@@ -20,12 +27,16 @@ const App = () => {
     } else {
       setPersons(persons.concat(personObject))
       setNewName('')
+      setNewNumber('')
       console.log(persons)
     }
   }
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
+  }
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
   }
 
   return (
@@ -34,9 +45,12 @@ const App = () => {
       <form onSubmit={addPerson} >
         <div>
           name: <input onChange={handleNameChange} />
-          <button type='submit'>
-            add
-          </button>
+          <div>
+            number: <input onChange={handleNumberChange} />
+            <button type='submit'>
+              add
+            </button>
+          </div>
         </div>
       </form>
       <h2>Numbers</h2>
