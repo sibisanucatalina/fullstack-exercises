@@ -31,6 +31,12 @@ const App = () => {
       window.alert('Este deja')
     } else {
       setPersons(persons.concat(personObject))
+
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+          console.log(response)
+        })
       setNewName('')
       setNewNumber('')
       setNewId(newId + 1)
@@ -69,7 +75,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Filter filtered={filtered} onChange={filterByName} />
+      <Filter onChange={filterByName} />
       <h3>add a new person</h3>
       <PersonForm onSubmit={addPerson} onChangeName={handleNameChange} onChangeNumber={handleNumberChange} />
       <h3>Numbers</h3>
