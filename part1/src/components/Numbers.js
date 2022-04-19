@@ -1,7 +1,10 @@
 
 const Numbers = ({ person }) => {
   return (
-    <li> {person.name} {person.number} </li>
+    <li>
+      {person.name} {person.number}
+      <button>delete</button>
+    </li>
   )
 }
 
