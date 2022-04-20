@@ -39,7 +39,9 @@ const App = () => {
   }
 
   const doDelete = (id) => {
-    window.confirm(`Are you sure you want to delete?`)
+    const personToDelete = persons.filter(person => person.id === id)
+    console.log(personToDelete)
+    window.confirm(`Are you sure you want to delete ${personToDelete[0].name}?`)
     personService
       .remove(id)
       .then(() => {
