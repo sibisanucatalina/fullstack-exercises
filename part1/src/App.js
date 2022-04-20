@@ -21,8 +21,18 @@ const App = () => {
     }
     console.log(personObject)
     let include = persons.filter(person => person.name === newName)
+    const arto = include[0]
+    const copy = { ...arto, number: newNumber }
     if (include.length > 0) {
-      window.alert('Este deja')
+      window.confirm(` ${copy.name} is already added to the phonebook, replace the old number with a new one?`)
+      personService
+        .update(copy.id, copy)
+        .then(returnedPerson => {
+          setPersons(persons.map(person => person.id !== copy.id
+            ? person
+            : returnedPerson))
+        })
+
     } else {
 
       personService
@@ -38,9 +48,9 @@ const App = () => {
     }
   }
 
+
   const doDelete = (id) => {
     const personToDelete = persons.filter(person => person.id === id)
-    console.log(personToDelete)
     window.confirm(`Are you sure you want to delete ${personToDelete[0].name}?`)
     personService
       .remove(id)
