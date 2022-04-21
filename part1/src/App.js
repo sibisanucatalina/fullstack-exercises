@@ -10,7 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filtered, setFiltered] = useState('')
-
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -31,6 +31,20 @@ const App = () => {
           setPersons(persons.map(person => person.id !== copy.id
             ? person
             : returnedPerson))
+          setErrorMessage(
+            `${copy.name}'s number was updated in the phonebook`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+        .catch(error => {
+          setErrorMessage(
+            `${copy.name} was already deleted`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
         })
 
     } else {
@@ -39,6 +53,12 @@ const App = () => {
         .create(personObject)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
+          setErrorMessage(
+            `${personObject.name} was added to the phonebook`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
         })
 
       setNewName('')
@@ -82,10 +102,22 @@ const App = () => {
       })
   }, [])
 
+  const Notification = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+    return (
+      <div className='error'>
+        {message}
+      </div>
+    )
+  }
+
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
+      <Notification message={errorMessage} />
       <Filter onChange={filterByName} />
       <h3>add a new person</h3>
       <PersonForm onSubmit={addPerson} onChangeName={handleNameChange} onChangeNumber={handleNumberChange} />
